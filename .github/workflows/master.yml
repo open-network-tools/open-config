@@ -1,0 +1,64 @@
+name: Master
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install dependencies
+        run: composer install --prefer-dist --no-progress
+      - name: Execute tests
+        run: XDEBUG_MODE=coverage vendor/bin/phpunit --configuration phpunit.xml.dist
+      - name: Upload tests results
+        uses: actions/upload-artifact@v2
+        with:
+          name: phpunit
+          path: |
+            phpunit.xml
+      - name: Upload tests results
+        uses: actions/upload-artifact@v2
+        with:
+          name: coverage
+          path: |
+            coverage.xml
+  test-codacy:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download tests results
+        uses: actions/download-artifact@v2
+        with:
+          name: coverage
+      - name: Run codacy-coverage-reporter
+        uses: codacy/codacy-coverage-reporter-action@v1
+        with:
+          project-token: ${{ secrets.CODACY_TOKEN }}
+          coverage-reports: coverage.xml
+  test-coveralls:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download tests results
+        uses: actions/download-artifact@v2
+        with:
+          name: coverage
+      - name: Upload coverage results to Coveralls
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+        run: bash <(curl -s https://codecov.io/bash)
+  tag:
+    needs: [test-codacy, test-coveralls]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: '0'
+      - name: Bump version and push tag
+        uses: anothrNick/github-tag-action@1.36.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          WITH_V: true

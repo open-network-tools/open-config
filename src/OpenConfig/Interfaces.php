@@ -16,11 +16,15 @@
         }
 
         /**
+         * @param $unit
          * @param $slot
          * @param $port
          * @return Ethernet
          */
-        public function addEthernet($slot, $port){
+        public function addEthernet($unit, $slot, $port){
+            Validator::validate($unit, [
+                new Asset\Type('integer')
+            ]);
             Validator::validate($slot, [
                 new Asset\Type('integer')
             ]);
@@ -28,13 +32,20 @@
                 new Asset\Type('integer')
             ]);
 
-            $this->ethernet[$slot][$port] = new Ethernet($this);
-            return $this->ethernet[$slot][$port];
+            $this->ethernet[$unit][$slot][$port] = new Ethernet($this);
+            return $this->ethernet[$unit][$slot][$port];
         }
 
-        public function getEthernet($slot = null, $port = null){
-            if(is_numeric($slot) && is_numeric($port)) return $this->ethernet[$slot][$port];
-            elseif(is_numeric($slot)) return $this->ethernet[$slot];
+        /**
+         * @param null $unit
+         * @param null $slot
+         * @param null $port
+         * @return Ethernet
+         */
+        public function getEthernet($unit = null, $slot = null, $port = null){
+            if(is_numeric($unit) && is_numeric($slot) && is_numeric($port)) return $this->ethernet[$unit][$slot][$port];
+            elseif(is_numeric($unit) && is_numeric($slot)) return $this->ethernet[$unit][$slot];
+            elseif(is_numeric($unit)) return $this->ethernet[$unit];
             else return $this->ethernet;
         }
 

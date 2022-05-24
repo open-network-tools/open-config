@@ -6,6 +6,7 @@
 
     class Vlans {
 
+        private $description;
         private $id;
         private $isid;
         private $name;
@@ -24,8 +25,18 @@
             ]);
 
             $this->id = $vlanId;
+            $this->name = "VLAN-".$vlanId;
             $this->type = $type;
             $this->typeInstance = $typeInstance;
+        }
+
+        public function getDescription() {
+            return $this->description;
+        }
+
+        public function setDescription($description) {
+            $this->description = $description;
+            return $this;
         }
 
         public function getId() {

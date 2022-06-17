@@ -18,6 +18,7 @@
             foreach ($this->getConfig()->getVlans() as $vlan => $v){
                 $this->addConfigExportLine("create vlan \"".$v->getName()."\"");
                 $this->addConfigExportLine("configure vlan \"".$v->getName()."\" tag ".$v->getId());
+                $this->addConfigExportLine("configure vlan \"".$v->getName()."\" description \"".$v->getDescription()."\"");
             }
         }
 

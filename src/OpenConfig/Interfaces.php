@@ -8,7 +8,7 @@
     class Interfaces {
 
         private $aggregate;
-        private $ethernet;
+        private $ethernet = [];
         private $loopback;
         private $management;
 
@@ -43,10 +43,13 @@
          * @return Ethernet
          */
         public function getEthernet($unit = null, $slot = null, $port = null){
-            if(is_numeric($unit) && is_numeric($slot) && is_numeric($port)) return $this->ethernet[$unit][$slot][$port];
-            elseif(is_numeric($unit) && is_numeric($slot)) return $this->ethernet[$unit][$slot];
-            elseif(is_numeric($unit)) return $this->ethernet[$unit];
-            else return $this->ethernet;
+            if(is_numeric($unit) && is_numeric($slot) && is_numeric($port)){
+                if(!array_key_exists($unit, $this->ethernet)) $this->addEthernet($unit, $slot, $port);
+                if(!array_key_exists($slot, $this->ethernet[$unit])) $this->addEthernet($unit, $slot, $port);
+                if(!array_key_exists($port, $this->ethernet[$unit][$slot])) $this->addEthernet($unit, $slot, $port);
+
+                return $this->ethernet[$unit][$slot][$port];
+            } else return $this->ethernet;
         }
 
     }

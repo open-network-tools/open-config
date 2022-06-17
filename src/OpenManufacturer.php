@@ -16,6 +16,10 @@
             return $this->config;
         }
 
+        public function setConfig(OpenConfig $config){
+            $this->config = $config;
+        }
+
         public function getConfigExport(){
             return $this->configExport;
         }

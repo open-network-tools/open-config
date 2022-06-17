@@ -15,6 +15,7 @@
         public function analyseConfigFile(){
             foreach ($this->getConfigFile() as $k => $v){
                 $this->analyseInterface($k, $v);
+                $this->analyseSnmp($k, $v);
                 $this->analyseVlan($k, $v);
             }
         }
@@ -35,6 +36,16 @@
                     }
                     $this->addConfigReport($key);
                 }
+        }
+
+        private function analyseSnmp($key, $line){
+            if(preg_match("#^snmp-server contact \"(.*)\"#", $line, $match)){
+                $this->getConfig()->getSnmp()->setContact($match[1]);
+            } elseif(preg_match("#^snmp-server name \"(.*)\"#", $line, $match)){
+                $this->getConfig()->getSystem()->setHostName($match[1]);
+            } elseif(preg_match("#^snmp-server location \"(.*)\"#", $line, $match)){
+                $this->getConfig()->getSnmp()->setLocation($match[1]);
+            }
         }
 
         private function analyseVlan($key, $line){

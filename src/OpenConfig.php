@@ -3,6 +3,7 @@
 
     use OpenNetworkTools\Interfaces\OpenConfigInterface;
     use OpenNetworkTools\OpenConfig\Interfaces;
+    use OpenNetworkTools\OpenConfig\Snmp;
     use OpenNetworkTools\OpenConfig\System;
     use OpenNetworkTools\OpenConfig\Vlans;
     use OpenNetworkTools\Toolbox\Validator;
@@ -11,16 +12,22 @@
     class OpenConfig implements OpenConfigInterface {
 
         private $interfaces;
+        private $snmp;
         private $system;
         private $vlans;
 
         public function __construct() {
             $this->interfaces = new Interfaces();
+            $this->snmp = new Snmp();
             $this->system = new System();
         }
 
         public function getInterfaces(){
             return $this->interfaces;
+        }
+
+        public function getSnmp(){
+            return $this->snmp;
         }
 
         public function getSystem() {

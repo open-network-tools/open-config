@@ -41,10 +41,13 @@
         private function analyseSnmp($key, $line){
             if(preg_match("#^snmp-server contact \"(.*)\"#", $line, $match)){
                 $this->getConfig()->getSnmp()->setContact($match[1]);
+                $this->addConfigReport($key);
             } elseif(preg_match("#^snmp-server name \"(.*)\"#", $line, $match)){
                 $this->getConfig()->getSystem()->setHostName($match[1]);
+                $this->addConfigReport($key);
             } elseif(preg_match("#^snmp-server location \"(.*)\"#", $line, $match)){
                 $this->getConfig()->getSnmp()->setLocation($match[1]);
+                $this->addConfigReport($key);
             }
         }
 

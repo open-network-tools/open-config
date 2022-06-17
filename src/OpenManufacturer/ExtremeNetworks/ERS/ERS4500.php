@@ -8,23 +8,22 @@
     class ERS4500 extends ERS {
 
         static $model = [
-            "ERS4526FX"         => [['slot' => 1, 'port' => 26, 'first_port' => 1]],
-            "ERS4526T"          => [['slot' => 1, 'port' => 26, 'first_port' => 1]],
-            "ERS4526T-PWR"      => [['slot' => 1, 'port' => 26, 'first_port' => 1]],
-            "ERS4550T"          => [['slot' => 1, 'port' => 50, 'first_port' => 1]],
-            "ERS4550T-PWR"      => [['slot' => 1, 'port' => 50, 'first_port' => 1]],
-            "ERS4524GT"         => [['slot' => 1, 'port' => 24, 'first_port' => 1]],
-            "ERS4524GT-PWR"     => [['slot' => 1, 'port' => 24, 'first_port' => 1]],
-            "ERS4548GT"         => [['slot' => 1, 'port' => 48, 'first_port' => 1]],
-            "ERS4548GT-PWR"     => [['slot' => 1, 'port' => 48, 'first_port' => 1]],
-            "ERS4526GTX"        => [['slot' => 1, 'port' => 26, 'first_port' => 1]],
-            "ERS4526GTX-PWR"    => [['slot' => 1, 'port' => 26, 'first_port' => 1]]
+            "4526FX"         => [['slot' => 1, 'port' => 26, 'first_port' => 1]],
+            "4526T"          => [['slot' => 1, 'port' => 26, 'first_port' => 1]],
+            "4526T-PWR"      => [['slot' => 1, 'port' => 26, 'first_port' => 1]],
+            "4550T"          => [['slot' => 1, 'port' => 50, 'first_port' => 1]],
+            "4550T-PWR"      => [['slot' => 1, 'port' => 50, 'first_port' => 1]],
+            "4524GT"         => [['slot' => 1, 'port' => 24, 'first_port' => 1]],
+            "4524GT-PWR"     => [['slot' => 1, 'port' => 24, 'first_port' => 1]],
+            "4548GT"         => [['slot' => 1, 'port' => 48, 'first_port' => 1]],
+            "4548GT-PWR"     => [['slot' => 1, 'port' => 48, 'first_port' => 1]],
+            "4526GTX"        => [['slot' => 1, 'port' => 26, 'first_port' => 1]],
+            "4526GTX-PWR"    => [['slot' => 1, 'port' => 26, 'first_port' => 1]]
         ];
 
-        public function __construct($model = "ERS4548GT") {
+        public function __construct() {
             parent::__construct();
             $this->getConfig()->addVlans(1);
-            $this->addUnit(1, $model);
         }
 
         public function addUnit($unit, $model){
@@ -39,6 +38,14 @@
             foreach ($this->getConfigFile() as $k => $v){
                 $this->analyseInterface($k, $v);
                 $this->analyseVlan($k, $v);
+            }
+        }
+
+        public function analyseConfigUnit(){
+            foreach ($this->getConfigFile() as $k => $v){
+                if(preg_match("#^!([0-8])     ([a-zA-Z0-9\-]+)(.*)#", $v, $match)){
+                    $this->addUnit((int)$match[1], $match[2]);
+                }
             }
         }
 

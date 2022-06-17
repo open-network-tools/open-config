@@ -50,6 +50,10 @@
             $this->configReport[$k] = true;
         }
 
+        public function getConfigReport(){
+            return $this->configReport;
+        }
+
         public function printConfigReport(){
             foreach ($this->configFile as $k => $v){
                 $check = "\e[31m✕";

@@ -16,9 +16,15 @@
         private function generateVlan(){
             $this->generateHeader("Module vlan configuration.");
             foreach ($this->getConfig()->getVlans() as $vlan => $v){
-                $this->addConfigExportLine("create vlan \"".$v->getName()."\"");
-                $this->addConfigExportLine("configure vlan \"".$v->getName()."\" tag ".$v->getId());
-                $this->addConfigExportLine("configure vlan \"".$v->getName()."\" description \"".$v->getDescription()."\"");
+                if($vlan == 1){
+                    $this->addConfigExportLine("configure vlan \"Default\" name ".$v->getName());
+                    $this->addConfigExportLine("configure vlan \"".$v->getName()."\" tag ".$v->getId());
+                    $this->addConfigExportLine("configure vlan \"".$v->getName()."\" description \"".$v->getDescription()."\"");
+                } else {
+                    $this->addConfigExportLine("create vlan \"".$v->getName()."\"");
+                    $this->addConfigExportLine("configure vlan \"".$v->getName()."\" tag ".$v->getId());
+                    $this->addConfigExportLine("configure vlan \"".$v->getName()."\" description \"".$v->getDescription()."\"");
+                }
             }
         }
 

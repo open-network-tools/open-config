@@ -61,6 +61,11 @@
             return $this;
         }
 
+        public function addVlan($vlan){
+            $this->vlans[$vlan] = $vlan;
+            return $this;
+        }
+
         public function getVlans() {
             return $this->vlans;
         }

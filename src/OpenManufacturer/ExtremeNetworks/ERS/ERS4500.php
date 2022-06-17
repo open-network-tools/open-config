@@ -73,6 +73,13 @@
                     $this->getConfig()->getInterfaces()->getEthernet((int)$i[0], (int)1, (int)$i[1])->setTagging($match[2]);
                 }
                 $this->addConfigReport($key);
+            } elseif(preg_match("#^vlan members ([0-9]+) ([0-9\/\-\,]+)#", $line, $match)){
+                $interfaces = AnalyseInterfaces::explode($match[2]);
+                foreach ($interfaces as $interface){
+                    $i = explode("/", $interface);
+                    $this->getConfig()->getInterfaces()->getEthernet((int)$i[0], (int)1, (int)$i[1])->addVlan($match[1]);
+                }
+                $this->addConfigReport($key);
             }
         }
 

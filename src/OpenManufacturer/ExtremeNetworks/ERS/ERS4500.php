@@ -66,6 +66,13 @@
                     $this->getConfig()->getInterfaces()->getEthernet((int)$i[0], (int)1, (int)$i[1])->setPvid($match[2]);
                 }
                 $this->addConfigReport($key);
+            } elseif(preg_match("#^vlan ports ([0-9\/\-\,]+) tagging (unTagPvidOnly|tagAll|untagAll|tagPvidOnly)#", $line, $match)){
+                $interfaces = AnalyseInterfaces::explode($match[1]);
+                foreach ($interfaces as $interface){
+                    $i = explode("/", $interface);
+                    $this->getConfig()->getInterfaces()->getEthernet((int)$i[0], (int)1, (int)$i[1])->setTagging($match[2]);
+                }
+                $this->addConfigReport($key);
             }
         }
 

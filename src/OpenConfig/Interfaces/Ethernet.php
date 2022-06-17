@@ -60,6 +60,15 @@
             $this->type = $type;
             return $this;
         }
+        
+        public function getVlans() {
+            return $this->vlans;
+        }
+
+        public function setVlans($vlans) {
+            $this->vlans = $vlans;
+            return $this;
+        }
 
 
     }

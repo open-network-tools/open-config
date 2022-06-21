@@ -14,10 +14,10 @@
             'ERS 49xx'  => 'extremenetworks-ers-49xx',
         ];
         static $destinationModel = [
-            'XOS 5320'  => 'extremenetwork-xos-5320',
-            'XOS 5420'  => 'extremenetwork-xos-5420',
-            'XOS 5520'  => 'extremenetwork-xos-5520',
-            'XOS 5720'  => 'extremenetwork-xos-5720',
+            'XOS 5320'  => 'extremenetworks-xos-5320',
+            'XOS 5420'  => 'extremenetworks-xos-5420',
+            'XOS 5520'  => 'extremenetworks-xos-5520',
+            'XOS 5720'  => 'extremenetworks-xos-5720',
         ];
 
         public function __construct(){

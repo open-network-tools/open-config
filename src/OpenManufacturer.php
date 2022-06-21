@@ -1,6 +1,14 @@
 <?php
     namespace OpenNetworkTools;
 
+    use OpenNetworkTools\OpenManufacturer\ExtremeNetworks\ERS\ERS4500;
+    use OpenNetworkTools\OpenManufacturer\ExtremeNetworks\ERS\ERS4800;
+    use OpenNetworkTools\OpenManufacturer\ExtremeNetworks\ERS\ERS4900;
+    use OpenNetworkTools\OpenManufacturer\ExtremeNetworks\XOS\XOS5320;
+    use OpenNetworkTools\OpenManufacturer\ExtremeNetworks\XOS\XOS5420;
+    use OpenNetworkTools\OpenManufacturer\ExtremeNetworks\XOS\XOS5520;
+    use OpenNetworkTools\OpenManufacturer\ExtremeNetworks\XOS\XOS5720;
+
     class OpenManufacturer {
 
         private $config;
@@ -12,8 +20,15 @@
             'ERS 45xx'  => 'extremenetworks-ers-45xx',
             'ERS 48xx'  => 'extremenetworks-ers-48xx',
             'ERS 49xx'  => 'extremenetworks-ers-49xx',
+            'XOS 5320'  => 'extremenetworks-xos-5320',
+            'XOS 5420'  => 'extremenetworks-xos-5420',
+            'XOS 5520'  => 'extremenetworks-xos-5520',
+            'XOS 5720'  => 'extremenetworks-xos-5720',
         ];
         static $destinationModel = [
+            'ERS 45xx'  => 'extremenetworks-ers-45xx',
+            'ERS 48xx'  => 'extremenetworks-ers-48xx',
+            'ERS 49xx'  => 'extremenetworks-ers-49xx',
             'XOS 5320'  => 'extremenetworks-xos-5320',
             'XOS 5420'  => 'extremenetworks-xos-5420',
             'XOS 5520'  => 'extremenetworks-xos-5520',
@@ -76,6 +91,18 @@
                 if(array_key_exists($k, $this->configReport)) $check = "\e[32m✓";
                 echo " ".$check."\e[96m  | \e[39m".$v;
             }
+        }
+
+        static function modelInit($model){
+            if($model == "extremenetworks-ers-45xx") return new ERS4500();
+            elseif($model == "extremenetworks-ers-48xx") return new ERS4800();
+            elseif($model == "extremenetworks-ers-49xx") return new ERS4900();
+            elseif($model == "extremenetworks-ers-49xx") return new ERS4900();
+            elseif($model == "extremenetworks-xos-5320") return new XOS5320();
+            elseif($model == "extremenetworks-xos-5420") return new XOS5420();
+            elseif($model == "extremenetworks-xos-5520") return new XOS5520();
+            elseif($model == "extremenetworks-xos-5720") return new XOS5720();
+            else throw new \Exception("Model unknown");
         }
 
         static function modelManufacturer($value = ""){

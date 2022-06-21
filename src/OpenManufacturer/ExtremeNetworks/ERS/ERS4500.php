@@ -83,4 +83,8 @@
             }
         }
 
+        public function generateConfig(){
+            //@TODO
+        }
+
     }

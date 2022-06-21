@@ -1,13 +1,18 @@
 <?php
     namespace OpenNetworkTools\OpenManufacturer\ExtremeNetworks\XOS;
 
-    use OpenNetworkTools\OpenManufacturer\ExtremeNetworks\Toolbox\AnalyseInterfaces;
     use OpenNetworkTools\OpenManufacturer\ExtremeNetworks\XOS;
 
     class XOS5420 extends XOS {
 
         public function __construct() {
             parent::__construct();
+        }
+
+        public function analyseConfigFile(){
+            foreach ($this->getConfigFile() as $k => $v){
+                // @TODO
+            }
         }
 
         public function generateConfig(){

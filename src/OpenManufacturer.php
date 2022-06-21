@@ -79,8 +79,9 @@
         }
 
         static function modelManufacturer($value = ""){
-            if(str_contains($value, "extremenetworks") && str_contains($value, "-xos")) return "Extreme Networks - XOS";
-            if(str_contains($value, "extremenetworks") && str_contains($value, "-voss")) return "Extreme Networks - VOSS";
+            if(str_contains($value, "extremenetworks") && str_contains($value, "ers")) return "Extreme Networks - ERS";
+            if(str_contains($value, "extremenetworks") && str_contains($value, "voss")) return "Extreme Networks - VOSS";
+            if(str_contains($value, "extremenetworks") && str_contains($value, "xos")) return "Extreme Networks - XOS";
             if(str_contains($value, "extremenetworks")) return "Extreme Networks";
             if(str_contains($value, "juniper")) return "Juniper";
             return "Unknown";

@@ -30,8 +30,18 @@
             return $this->snmp;
         }
 
+        public function setSnmp(Snmp $snmp){
+            $this->snmp = $snmp;
+            return $this;
+        }
+
         public function getSystem() {
             return $this->system;
+        }
+
+        public function setSystem(System $system){
+            $this->system = $system;
+            return $this;
         }
 
         public function addVlans($vlan) {
@@ -51,7 +61,8 @@
             // TODO: Implement removeVlans() method.
         }
 
-        public function setVlans($vlan) {
-            // TODO: Implement setVlans() method.
+        public function setVlans($vlans) {
+            $this->vlans = $vlans;
+            return $this;
         }
     }

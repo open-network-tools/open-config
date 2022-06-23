@@ -33,6 +33,8 @@
             ]);
 
             $this->ethernet[$unit][$slot][$port] = new Ethernet($this);
+            ksort($this->ethernet[$unit]);
+            ksort($this->ethernet[$unit][$slot]);
             return $this->ethernet[$unit][$slot][$port];
         }
 
@@ -50,6 +52,23 @@
 
                 return $this->ethernet[$unit][$slot][$port];
             } else return $this->ethernet;
+        }
+
+        public function setEthernet($unit, $slot, $port, Ethernet $ethernet){
+            Validator::validate($unit, [
+                new Asset\Type('integer')
+            ]);
+            Validator::validate($slot, [
+                new Asset\Type('integer')
+            ]);
+            Validator::validate($port, [
+                new Asset\Type('integer')
+            ]);
+
+            $this->ethernet[$unit][$slot][$port] = $ethernet;
+            ksort($this->ethernet[$unit]);
+            ksort($this->ethernet[$unit][$slot]);
+            return $this->ethernet[$unit][$slot][$port];
         }
 
     }

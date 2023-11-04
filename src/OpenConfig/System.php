@@ -5,6 +5,7 @@
 
         private $domainName;
         private $hostname;
+        private $nameserver = [];
 
         public function __construct(){
         }
@@ -23,6 +24,19 @@
 
         public function setHostname($hostname){
             $this->hostname = $hostname;
+        }
+
+        public function getNameServer(){
+            return $this->nameserver;
+        }
+
+        public function addNameServer($nameserver){
+            $this->nameserver[] = $nameserver;
+            return $this;
+        }
+
+        public function removeNameServer($nameserver){
+            return $this;
         }
 
     }

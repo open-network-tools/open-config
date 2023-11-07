@@ -14,14 +14,14 @@
             $data = [];
             if(!is_null($this->getDomainName())) $data['domainname'] = $this->getDomainName();
             if(!is_null($this->getHostname())) $data['hostname'] = $this->getHostname();
-            if(!is_null($this->getNameServer())) $data['nameserver'] = $this->getNameServer();
+            if(!is_null($this->getNameServer()) && sizeof($this->getNameServer()) > 0) $data['nameserver'] = $this->getNameServer();
             return $data;
         }
 
         public function setArray(array $data){
             if(array_key_exists('domainname')) $this->setDomainName($data['domainname']);
             if(array_key_exists('hostname')) $this->setHostname($data['hostname']);
-            if(array_key_exists('nameserver')) $this->setNameServer($data['nameserver']);
+            if(array_key_exists('nameserver')) if(sizeof($data['nameserver']) > 0) $this->setNameServer($data['nameserver']);
         }
 
         public function getDomainName(){

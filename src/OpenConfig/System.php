@@ -18,6 +18,12 @@
             return $data;
         }
 
+        public function setArray(array $data){
+            if(array_key_exists('domainname')) $this->setDomainName($data['domainname']);
+            if(array_key_exists('hostname')) $this->setHostname($data['hostname']);
+            if(array_key_exists('nameserver')) $this->setNameServer($data['nameserver']);
+        }
+
         public function getDomainName(){
             return $this->domainName;
         }
@@ -44,6 +50,11 @@
         }
 
         public function removeNameServer($nameserver){
+            return $this;
+        }
+
+        public function setNameServer($nameserver){
+            $this->nameserver = $nameserver;
             return $this;
         }
 

@@ -2,6 +2,7 @@
     namespace OpenNetworkTools;
 
     use OpenNetworkTools\OpenConfig\System;
+    use Symfony\Component\Yaml\Yaml;
 
     class OpenConfig {
 
@@ -15,7 +16,7 @@
         public function exportYaml(){
             $data = [];
             $data['system'] = $this->getSystem()->getArray();
-            return $data;
+            return Yaml::dump($data);
         }
 
         public function importYaml(array $data){

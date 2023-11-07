@@ -12,6 +12,11 @@
             $this->system = new System();
         }
 
+        public function getArray(){
+            $data = [];
+            return $data;
+        }
+
         public function getInterfaces(){
             return $this->interfaces;
         }

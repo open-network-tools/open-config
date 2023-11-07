@@ -14,6 +14,7 @@
 
         public function getArray(){
             $data = [];
+            $data['system'] = $this->getSystem()->getArray();
             return $data;
         }
 

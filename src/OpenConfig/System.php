@@ -10,6 +10,14 @@
         public function __construct(){
         }
 
+        public function getArray(){
+            $data = [];
+            if(!is_null($this->getDomainName())) $data['domainname'] = $this->getDomainName();
+            if(!is_null($this->getHostname())) $data['hostname'] = $this->getHostname();
+            if(!is_null($this->getNameServer())) $data['nameserver'] = $this->getNameServer();
+            return $data;
+        }
+
         public function getDomainName(){
             return $this->domainName;
         }

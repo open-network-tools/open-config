@@ -52,6 +52,7 @@
          */
         public function addVlans($vlan){
             $this->vlans[$vlan] = new Vlans();
+            ksort($this->vlans);
             return $this->vlans[$vlan];
         }
 
@@ -61,9 +62,20 @@
         public function getVlans($vlan = null){
             if(!is_null($vlan)){
                 if(!array_key_exists($vlan, $this->vlans)) $this->addVlans($vlan);
+                ksort($this->vlans);
                 return $this->vlans[$vlan];
             } else return $this->vlans;
+        }
 
+        public function renameVlan($oldVlan, $newVlan){
+            if(!is_null($oldVlan) && !is_null($newVlan)){
+                if(array_key_exists($oldVlan, $this->vlans)){
+                    $this->vlans[$newVlan] = $this->vlans[$oldVlan];
+                    unset($this->vlans[$oldVlan]);
+                    ksort($this->vlans);
+                    return $this;
+                }
+            }
         }
 
     }

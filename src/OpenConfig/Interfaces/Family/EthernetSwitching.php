@@ -4,6 +4,7 @@
     class EthernetSwitching {
 
         private $interfaceMode;
+        private $nativeVlanId;
         private $vlans = [];
 
         public function __construct(){
@@ -27,6 +28,15 @@
 
         public function setInterfaceMode($interfaceMode): self {
             $this->interfaceMode = $interfaceMode;
+            return $this;
+        }
+
+        public function getNativeVlanId(){
+            return $this->nativeVlanId;
+        }
+
+        public function setNativeVlanId($nativeVlanId): self {
+            $this->nativeVlanId = $nativeVlanId;
             return $this;
         }
 
